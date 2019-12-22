@@ -30,6 +30,7 @@ class CurrencyController extends Controller
             $trackedWays = [];
 
             $this->findExchangeWays($exchangeWaysArr, $exchangeFrom, $exchangeTo, $result, $trackedWays, $totalResults);
+            $totalResults = $this->removeDuplicatePaths($totalResults);
             return json_encode($totalResults);
         }
 
@@ -90,6 +91,21 @@ class CurrencyController extends Controller
                 $trackedWays = $currTrackedWays;
             }
         }
+    }
+
+    /**
+     * @param $totalResults
+     * @return array
+     * @author Lasha Lomidze <lomidzelf@gmail.com>
+     * Since the main search algorithm does not track FULL already used paths,
+     * this minor function sanitizes the final array and removes duplicates.
+     */
+    private function removeDuplicatePaths($totalResults)
+    {
+        $serialized = array_map('serialize', $totalResults);
+        $uniqueResults = array_unique($serialized);
+        $uniqueResultsWithKeys = array_intersect_key($totalResults, $uniqueResults);
+        return array_values($uniqueResultsWithKeys);
     }
 
     /**
