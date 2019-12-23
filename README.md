@@ -1,6 +1,6 @@
 # Crypto API
 A simple Laravel endpoint which calculates all possible conversion ways for provided currency dataset.
-Developed as a programming job interview task. Utilizes DFS as the core algorithm.
+Developed as a programming job interview task. Utilizes BFS as the core algorithm.
 
 ## Installation Guide
 Just refer to default Laravel installation guide here:
